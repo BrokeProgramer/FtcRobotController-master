@@ -11,6 +11,7 @@ public class Betaauto extends LinearOpMode {
     DcMotor backLeft;
     DcMotor backRight;
     DcMotor Carasol;
+
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -19,48 +20,53 @@ public class Betaauto extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         Carasol = hardwareMap.dcMotor.get("Carasol");
         waitForStart();
-        Straithleft();
+        Straithright();
         sleep(150);
         backwards();
         sleep(1500);
         stopexceptCarasol();
         sleep(5000);
         turnLeft();
-        sleep(1000);
+        sleep(500);
         forward();
         sleep(500);
-        turnRight();
-        sleep(500);
-        backwards();
-        sleep(400);
+        turnLeft();
+        sleep(600);
+        forward();
+        sleep(240);
         stop();
         stopMotors();
 
     }
+
     public void forward() {
         frontLeft.setPower(.5);
         frontRight.setPower(-.5);
         backLeft.setPower(.5);
         backRight.setPower(-.5);
     }
+
     public void backwards() {
-        frontLeft.setPower(-.4);
-        frontRight.setPower(.5);
-        backLeft.setPower(-.5);
-        backRight.setPower(.5);
+        frontLeft.setPower(-.3);
+        frontRight.setPower(.3);
+        backLeft.setPower(-.3);
+        backRight.setPower(.3);
     }
+
     public void turnRight() {
         frontLeft.setPower(0);
         frontRight.setPower(-.5);
         backLeft.setPower(0);
         backRight.setPower(-.5);
     }
+
     public void turnLeft() {
         frontLeft.setPower(.5);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(.5);
     }
+
     public void stopMotors() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
@@ -68,12 +74,21 @@ public class Betaauto extends LinearOpMode {
         backRight.setPower(0);
         Carasol.setPower(0);
     }
+
     public void stopexceptCarasol() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        Carasol.setPower(.8);
+        Carasol.setPower(-.5);
+    }
+
+    public void CarasolRightSide() {
+        frontLeft.setPower(-.03);
+        frontRight.setPower(.03);
+        backLeft.setPower(-.03);
+        backRight.setPower(.03);
+        Carasol.setPower(.5);
     }
     public void Straithright() {
         frontLeft.setPower(-.2);
@@ -88,3 +103,4 @@ public class Betaauto extends LinearOpMode {
         backRight.setPower(-.2);
     }
 }
+
