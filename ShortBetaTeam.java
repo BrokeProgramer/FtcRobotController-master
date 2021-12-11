@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Autonomous(name = "ShortBetaTeam")
+@Autonomous(name = "ShortBetaTeam", group = "game")
 public class ShortBetaTeam extends LinearOpMode {
 
     DcMotor frontLeft;
@@ -23,9 +23,9 @@ public class ShortBetaTeam extends LinearOpMode {
         forward();
         sleep(900);
         turnLeft();
-        sleep(1000);
+        sleep(900);
         forward();
-        sleep(500);
+        sleep(250);
         stop();
 
         stopMotors();
@@ -50,10 +50,10 @@ public class ShortBetaTeam extends LinearOpMode {
         backRight.setPower(0);
     }
     public void turnLeft() {
-        frontLeft.setPower(0);
-        frontRight.setPower(-.5);
-        backLeft.setPower(0);
-        backRight.setPower(-.5);
+        frontLeft.setPower(.5);
+        frontRight.setPower(0);
+        backLeft.setPower(.5);
+        backRight.setPower(0);
     }
     public void stopMotors() {
         frontLeft.setPower(0);

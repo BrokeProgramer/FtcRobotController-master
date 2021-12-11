@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 //@Disabled
-@Autonomous(name = "Encodertest", group = "Pushbot")
+@Autonomous(name = "Encodertest", group = "test")
 public class Encodertest extends LinearOpMode {
 
     HardwarePushbot robot = new HardwarePushbot();

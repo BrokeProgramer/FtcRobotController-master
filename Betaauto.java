@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Autonomous(name = "Betaauto")
+@Autonomous(name = "Betaauto", group = "game")
 public class Betaauto extends LinearOpMode {
 
     DcMotor frontLeft;
@@ -19,14 +19,20 @@ public class Betaauto extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         Carasol = hardwareMap.dcMotor.get("Carasol");
         waitForStart();
+        Straithleft();
+        sleep(150);
         backwards();
-        sleep(550);
-        stopexceptCarasol();
         sleep(1500);
+        stopexceptCarasol();
+        sleep(5000);
         turnLeft();
-        sleep(600);
-        forward();
         sleep(1000);
+        forward();
+        sleep(500);
+        turnRight();
+        sleep(500);
+        backwards();
+        sleep(400);
         stop();
         stopMotors();
 
@@ -38,7 +44,7 @@ public class Betaauto extends LinearOpMode {
         backRight.setPower(-.5);
     }
     public void backwards() {
-        frontLeft.setPower(-.5);
+        frontLeft.setPower(-.4);
         frontRight.setPower(.5);
         backLeft.setPower(-.5);
         backRight.setPower(.5);
@@ -68,5 +74,17 @@ public class Betaauto extends LinearOpMode {
         backLeft.setPower(0);
         backRight.setPower(0);
         Carasol.setPower(.8);
+    }
+    public void Straithright() {
+        frontLeft.setPower(-.2);
+        frontRight.setPower(.2);
+        backLeft.setPower(-.2);
+        backRight.setPower(.2);
+    }
+    public void Straithleft() {
+        frontLeft.setPower(.2);
+        frontRight.setPower(-.2);
+        backLeft.setPower(.2);
+        backRight.setPower(-.2);
     }
 }
