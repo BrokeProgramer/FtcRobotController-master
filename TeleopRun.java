@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
 @TeleOp(name = "TelopRun")
 public class TeleopRun extends OpMode {
     DcMotor frontLeft;
@@ -55,13 +55,13 @@ public class TeleopRun extends OpMode {
                 frontRight.setPower(0);
                 backRight.setPower(0);
             }
-            if (gamepad1.dpad_left) {
+            if (gamepad1.dpad_right) {
                 frontLeft.setPower(.8);
                 backLeft.setPower(-.8);
                 frontRight.setPower(-.8);
                 backRight.setPower(.8);
             }
-            if (gamepad1.dpad_right) {
+            if (gamepad1.dpad_left) {
                 frontLeft.setPower(-.8);
                 backLeft.setPower(.8);
                 frontRight.setPower(.8);
@@ -84,13 +84,13 @@ public class TeleopRun extends OpMode {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
             }
-            if (gamepad1.dpad_left) {
+            if (gamepad1.dpad_right) {
                 frontLeft.setPower(-.8);
                 backLeft.setPower(.8);
                 frontRight.setPower(.8);
                 backRight.setPower(-.8);
             }
-            if (gamepad1.dpad_right) {
+            if (gamepad1.dpad_left) {
                 frontLeft.setPower(.8);
                 backLeft.setPower(-.8);
                 frontRight.setPower(-.8);
@@ -111,7 +111,7 @@ public class TeleopRun extends OpMode {
             Claw.setPower(0.0);
         }
         if (gamepad2.right_bumper) {
-            Carasol.setPower(0.7);
+            Carasol.setPower(0.8);
         } else {
             Carasol.setPower(0.0);
         }

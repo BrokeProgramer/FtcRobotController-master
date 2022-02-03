@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //@Disabled
-@Autonomous(name = "Encodertest", group = "test")
-public class Encodertest extends LinearOpMode {
+@Autonomous(name = "EncoderWheelTest", group = "test")
+public class EncoderWheelTest extends LinearOpMode {
 
     DcMotor frontLeft;
     DcMotor frontRight;
@@ -57,14 +57,12 @@ public class Encodertest extends LinearOpMode {
 
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED,8,8,5.0);
+        encoderDrive(DRIVE_SPEED,800,800,50.0);
         sleep(3000);
-        encoderDrive(TURN_SPEED,3,3,4.0);
-        sleep(3000);
-        encoderDrive(DRIVE_SPEED,8,8,4.0);
 
-        leftClaw.setPosition(1.0);
-        rightClaw.setPosition(0.0);
+
+        //leftClaw.setPosition(1.0);
+        //rightClaw.setPosition(0.0);
 
 
         telemetry.addData("Path", "Complete");
@@ -72,57 +70,57 @@ public class Encodertest extends LinearOpMode {
     }
 
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeouts) {
-        int newLeftFrontTarget;
+       // int newLeftFrontTarget;
         int newRightFrontTarget;
-        int newLeftBackTarget;
-        int newRightBackTarget;
+        //int newLeftBackTarget;
+        //int newRightBackTarget;
 
         if (opModeIsActive()) {
 
-            newLeftFrontTarget =(frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
+           // newLeftFrontTarget =(frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
             newRightFrontTarget = frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newLeftBackTarget = (backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
-            newRightBackTarget = backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            frontLeft.setTargetPosition(newLeftFrontTarget);
+           // newLeftBackTarget = (backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
+            //newRightBackTarget = backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+           // frontLeft.setTargetPosition(newLeftFrontTarget);
             frontRight.setTargetPosition(newRightFrontTarget);
-            backLeft.setTargetPosition(newLeftBackTarget);
-            backRight.setTargetPosition(newRightBackTarget);
+            //backLeft.setTargetPosition(newLeftBackTarget);
+            //backRight.setTargetPosition(newRightBackTarget);
 
-            frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+           // frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+           // backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             runtime.reset();
-            frontLeft.setPower(-speed);
+            //frontLeft.setPower(-speed);
             frontRight.setPower(speed);
-            backLeft.setPower(-speed);
-            backRight.setPower(speed);
+           // backLeft.setPower(-speed);
+           // backRight.setPower(speed);
 
             while (opModeIsActive() && (runtime.seconds() < timeouts) && (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy())) {
 
                 //telemetry.addData("Pat1", "Running to %7d :%7d", newLeftFrontTarget, newRightFrontTarget);
                 //telemetry.addData("Path2", "Running to %7d :%7d", frontLeft.getCurrentPosition(), frontRight.getCurrentPosition());
-                telemetry.addData("fL pos", frontLeft.getCurrentPosition());
+               // telemetry.addData("fL pos", frontLeft.getCurrentPosition());
                 telemetry.addData("fR pos", frontRight.getCurrentPosition());
-                telemetry.addData("bL pos", backLeft.getCurrentPosition());
-                telemetry.addData("fR pos", backRight.getCurrentPosition());
+                //telemetry.addData("bL pos", backLeft.getCurrentPosition());
+               // telemetry.addData("fR pos", backRight.getCurrentPosition());
 
-                telemetry.addData("fL goal", newLeftFrontTarget);
+                //telemetry.addData("fL goal", newLeftFrontTarget);
                 telemetry.addData("fR goal", newRightFrontTarget);
-                telemetry.addData("bL goal", newLeftBackTarget);
-                telemetry.addData("bR goal", newRightBackTarget);
+               // telemetry.addData("bL goal", newLeftBackTarget);
+                //telemetry.addData("bR goal", newRightBackTarget);
                 telemetry.update();
             }
-            frontLeft.setPower(0);
+           // frontLeft.setPower(0);
             frontRight.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
+           // backLeft.setPower(0);
+          //  backRight.setPower(0);
 
-            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+           // backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+           // backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 }

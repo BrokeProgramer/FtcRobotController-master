@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
 @TeleOp(name = "Haydenmode")
 public class Haydenmode extends OpMode {
     DcMotor frontLeft;
@@ -42,15 +42,15 @@ public class Haydenmode extends OpMode {
 
             // Driving forwards
             if (Math.abs(-gamepad1.left_stick_y) > .1) {
-                frontLeft.setPower(-gamepad1.left_stick_y * -.5);
-                backLeft.setPower(-gamepad1.left_stick_y * -.5);
+                frontLeft.setPower(-gamepad1.left_stick_y * -.7);
+                backLeft.setPower(-gamepad1.left_stick_y * -.7);
             } else {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
             }
             if (Math.abs(-gamepad1.right_stick_y) > .1) {
-                frontRight.setPower(-gamepad1.right_stick_y * .5);
-                backRight.setPower(-gamepad1.right_stick_y * .5);
+                frontRight.setPower(-gamepad1.right_stick_y * .7);
+                backRight.setPower(-gamepad1.right_stick_y * .7);
             } else {
                 frontRight.setPower(0);
                 backRight.setPower(0);
@@ -71,15 +71,15 @@ public class Haydenmode extends OpMode {
 
             // Driving backwards
             if (Math.abs(-gamepad1.left_stick_y) > .1) {
-                frontRight.setPower(-gamepad1.left_stick_y * -.5);
-                backRight.setPower(-gamepad1.left_stick_y * -.5);
+                frontRight.setPower(-gamepad1.left_stick_y * -.7);
+                backRight.setPower(-gamepad1.left_stick_y * -.7);
             } else {
                 frontRight.setPower(0);
                 backRight.setPower(0);
             }
             if (Math.abs(-gamepad1.right_stick_y) > .1) {
-                frontLeft.setPower(-gamepad1.right_stick_y * .5);
-                backLeft.setPower(-gamepad1.right_stick_y * .5);
+                frontLeft.setPower(-gamepad1.right_stick_y * .7);
+                backLeft.setPower(-gamepad1.right_stick_y * .7);
             } else {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
@@ -99,8 +99,13 @@ public class Haydenmode extends OpMode {
         }
 
         if (gamepad2.a) {
-            leftClaw.setPosition(1.0);
-            rightClaw.setPosition(-1.0);
+            if (gamepad2.b) {
+                leftClaw.setPosition(.4);
+                rightClaw.setPosition(-.4);
+            }else{
+                leftClaw.setPosition(1.0);
+                rightClaw.setPosition(-1.0);
+            }
         } else {
             leftClaw.setPosition(-1.0);
             rightClaw.setPosition(1.0);
@@ -111,12 +116,12 @@ public class Haydenmode extends OpMode {
             Claw.setPower(0.0);
         }
         if (gamepad2.right_bumper) {
-            Carasol.setPower(1.0);
+            Carasol.setPower(0.8);
         } else {
             Carasol.setPower(0.0);
         }
         if (gamepad2.left_bumper) {
-            Carasol.setPower(-1.0);
+            Carasol.setPower(-0.7);
         } else {
             Carasol.setPower(0.0);
         }
