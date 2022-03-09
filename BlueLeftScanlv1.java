@@ -320,15 +320,15 @@ public class BlueLeftScanlv1 extends LinearOpMode {
         Carasol.setPower(.5);
     }
     public void Straithright() {
-        frontLeft.setPower(-.2);
-        frontRight.setPower(.2);
-        backLeft.setPower(-.2);
-        backRight.setPower(.2);
+        frontLeft.setPower(.3);
+        backLeft.setPower(-.3);
+        frontRight.setPower(.3);
+        backRight.setPower(-.3);
     }
     public void Straithleft() {
-        frontLeft.setPower(.2);
-        frontRight.setPower(-.2);
-        backLeft.setPower(.2);
-        backRight.setPower(-.2);
+        frontLeft.setPower(-.3);
+        backLeft.setPower(.3);
+        frontRight.setPower(-.3);
+        backRight.setPower(0.3);
     }
 }

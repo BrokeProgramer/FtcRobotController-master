@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 
+import android.database.sqlite.SQLiteException;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,20 +23,16 @@ public class RedBetaDucks extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         Carasol = hardwareMap.dcMotor.get("Carasol");
         waitForStart();
-        Straithright();
-        sleep(200);
         backwards();
-        sleep(1500);
+        sleep(1200);
+        turnLeft();
+        sleep(50);
         stopexceptCarasol();
         sleep(5000);
         turnLeft();
-        sleep(800);
+        sleep(490);
         forward();
-        sleep(600);
-        turnRight();
-        sleep(600);
-        backwards();
-        sleep(150);
+        sleep(240);
         stop();
         stopMotors();
 
@@ -77,10 +75,10 @@ public class RedBetaDucks extends LinearOpMode {
     }
 
     public void stopexceptCarasol() {
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        frontLeft.setPower(-.1);
+        frontRight.setPower(.1);
+        backLeft.setPower(-.1);
+        backRight.setPower(.1);
         Carasol.setPower(-.5);
     }
 
@@ -92,16 +90,16 @@ public class RedBetaDucks extends LinearOpMode {
         Carasol.setPower(.5);
     }
     public void Straithright() {
-        frontLeft.setPower(-.2);
-        frontRight.setPower(.2);
-        backLeft.setPower(-.2);
-        backRight.setPower(.2);
+        frontLeft.setPower(.3);
+        backLeft.setPower(-.3);
+        frontRight.setPower(.3);
+        backRight.setPower(-.3);
     }
     public void Straithleft() {
-        frontLeft.setPower(.2);
-        frontRight.setPower(-.2);
-        backLeft.setPower(.2);
-        backRight.setPower(-.2);
+        frontLeft.setPower(-.3);
+        backLeft.setPower(.3);
+        frontRight.setPower(-.3);
+        backRight.setPower(0.3);
     }
 }
 

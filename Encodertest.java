@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -25,8 +26,8 @@ public class Encodertest extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 3.78;
     static final double COUNTS_PER_INCH = (Counts_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
-    static final double DRIVE_SPEED = 0.3;
-    static final double TURN_SPEED = 0.2;
+    static final double DRIVE_SPEED = 0.4;
+    static final double TURN_SPEED = 0.3;
 
     @Override
     public void runOpMode() {
@@ -38,6 +39,9 @@ public class Encodertest extends LinearOpMode {
         rightClaw = hardwareMap.servo.get("rightClaw");
         Claw = hardwareMap.dcMotor.get("Claw");
         Carasol = hardwareMap.dcMotor.get("Carasol");
+
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
@@ -52,19 +56,20 @@ public class Encodertest extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("Path0", "Starting at %7d :%7d" ,frontRight.getCurrentPosition(), frontLeft.getCurrentPosition(),backRight.getCurrentPosition(), backLeft.getCurrentPosition());
+        telemetry.addData("Path0", "Starting at %7d :%7d", frontRight.getCurrentPosition(), frontLeft.getCurrentPosition(), backRight.getCurrentPosition(), backLeft.getCurrentPosition());
         telemetry.update();
 
         waitForStart();
-
-        encoderDrive(DRIVE_SPEED,8,8,5.0);
-        sleep(3000);
-        encoderDrive(TURN_SPEED,3,3,4.0);
-        sleep(3000);
-        encoderDrive(DRIVE_SPEED,8,8,4.0);
-
-        leftClaw.setPosition(1.0);
-        rightClaw.setPosition(0.0);
+hold();
+        encoderDrive(DRIVE_SPEED, -8, -8, 4.0);
+        hold();
+        sleep(1000);
+        encoderDrive(TURN_SPEED, -12, 12, 4.0);
+       hold();
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED, 8, 8, 4.0);
+        hold();
+        sleep(1000);
 
 
         telemetry.addData("Path", "Complete");
@@ -79,10 +84,10 @@ public class Encodertest extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            newLeftFrontTarget =(frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
-            newRightFrontTarget = frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newLeftBackTarget = (backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH))*-1;
-            newRightBackTarget = backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftFrontTarget = frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightFrontTarget = frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newLeftBackTarget = backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightBackTarget = backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             frontLeft.setTargetPosition(newLeftFrontTarget);
             frontRight.setTargetPosition(newRightFrontTarget);
             backLeft.setTargetPosition(newLeftBackTarget);
@@ -94,9 +99,9 @@ public class Encodertest extends LinearOpMode {
             backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             runtime.reset();
-            frontLeft.setPower(-speed);
+            frontLeft.setPower(speed);
             frontRight.setPower(speed);
-            backLeft.setPower(-speed);
+            backLeft.setPower(speed);
             backRight.setPower(speed);
 
             while (opModeIsActive() && (runtime.seconds() < timeouts) && (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy())) {
@@ -106,7 +111,7 @@ public class Encodertest extends LinearOpMode {
                 telemetry.addData("fL pos", frontLeft.getCurrentPosition());
                 telemetry.addData("fR pos", frontRight.getCurrentPosition());
                 telemetry.addData("bL pos", backLeft.getCurrentPosition());
-                telemetry.addData("fR pos", backRight.getCurrentPosition());
+                telemetry.addData("bR pos", backRight.getCurrentPosition());
 
                 telemetry.addData("fL goal", newLeftFrontTarget);
                 telemetry.addData("fR goal", newRightFrontTarget);
@@ -123,6 +128,30 @@ public class Encodertest extends LinearOpMode {
             frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         }
+    }
+
+    public void StayUp() {
+        Claw.setPower(.1);
+    }
+
+    public void Foldout() {
+        Claw.setPower(-.7);
+    }
+
+    public void Foldin() {
+        Claw.setPower(.7);
+    }
+
+    public void hold() {
+        leftClaw.setPosition(-.95);
+        rightClaw.setPosition(.95);
+    }
+
+    public void letGo() {
+        leftClaw.setPosition(1.0);
+        rightClaw.setPosition(-1.0);
     }
 }

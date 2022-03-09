@@ -5,8 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.teamcode.Autonomous.D4C;
+
 @TeleOp(name = "TelopRun")
 public class TeleopRun extends OpMode {
+
     DcMotor frontLeft;
     DcMotor backLeft;
     DcMotor frontRight;
@@ -56,14 +59,14 @@ public class TeleopRun extends OpMode {
                 backRight.setPower(0);
             }
             if (gamepad1.dpad_right) {
-                frontLeft.setPower(.8);
-                backLeft.setPower(-.8);
+                frontLeft.setPower(-.8);
+                backLeft.setPower(.8);
                 frontRight.setPower(-.8);
                 backRight.setPower(.8);
             }
             if (gamepad1.dpad_left) {
-                frontLeft.setPower(-.8);
-                backLeft.setPower(.8);
+                frontLeft.setPower(.8);
+                backLeft.setPower(-.8);
                 frontRight.setPower(.8);
                 backRight.setPower(-.8);
             }
@@ -85,16 +88,16 @@ public class TeleopRun extends OpMode {
                 backLeft.setPower(0);
             }
             if (gamepad1.dpad_right) {
-                frontLeft.setPower(-.8);
-                backLeft.setPower(.8);
+                frontLeft.setPower(.8);
+                backLeft.setPower(-.8);
                 frontRight.setPower(.8);
                 backRight.setPower(-.8);
             }
             if (gamepad1.dpad_left) {
-                frontLeft.setPower(.8);
-                backLeft.setPower(-.8);
+                frontLeft.setPower(-.8);
+                backLeft.setPower(.8);
                 frontRight.setPower(-.8);
-                backRight.setPower(.8);
+                backRight.setPower(0.8);
             }
         }
 

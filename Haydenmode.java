@@ -55,15 +55,15 @@ public class Haydenmode extends OpMode {
                 frontRight.setPower(0);
                 backRight.setPower(0);
             }
-            if (gamepad1.dpad_left) {
-                frontLeft.setPower(.8);
-                backLeft.setPower(-.8);
-                frontRight.setPower(-.8);
-                backRight.setPower(.8);
-            }
             if (gamepad1.dpad_right) {
                 frontLeft.setPower(-.8);
                 backLeft.setPower(.8);
+                frontRight.setPower(-.8);
+                backRight.setPower(.8);
+            }
+            if (gamepad1.dpad_left) {
+                frontLeft.setPower(.8);
+                backLeft.setPower(-.8);
                 frontRight.setPower(.8);
                 backRight.setPower(-.8);
             }
@@ -84,30 +84,30 @@ public class Haydenmode extends OpMode {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
             }
-            if (gamepad1.dpad_left) {
-                frontLeft.setPower(-.8);
-                backLeft.setPower(.8);
-                frontRight.setPower(.8);
-                backRight.setPower(-.8);
-            }
             if (gamepad1.dpad_right) {
                 frontLeft.setPower(.8);
                 backLeft.setPower(-.8);
+                frontRight.setPower(.8);
+                backRight.setPower(-.8);
+            }
+            if (gamepad1.dpad_left) {
+                frontLeft.setPower(-.8);
+                backLeft.setPower(.8);
                 frontRight.setPower(-.8);
-                backRight.setPower(.8);
+                backRight.setPower(0.8);
             }
         }
-
-        if (gamepad2.a) {
-            if (gamepad2.b) {
-                leftClaw.setPosition(.4);
-                rightClaw.setPosition(-.4);
-            }else{
-                leftClaw.setPosition(1.0);
-                rightClaw.setPosition(-1.0);
-            }
-        } else {
-            leftClaw.setPosition(-1.0);
+if (gamepad2.a) {
+    if (gamepad2.b) {
+        leftClaw.setPosition(1.0);
+        rightClaw.setPosition(0);
+    } else {
+        leftClaw.setPosition(.2);
+        rightClaw.setPosition(.8);
+    }
+}
+         else {
+            leftClaw.setPosition(0);
             rightClaw.setPosition(1.0);
         }
         if (Math.abs(gamepad2.left_stick_y) > .1) {
@@ -116,12 +116,12 @@ public class Haydenmode extends OpMode {
             Claw.setPower(0.0);
         }
         if (gamepad2.right_bumper) {
-            Carasol.setPower(0.8);
+            Carasol.setPower(0.5);
         } else {
             Carasol.setPower(0.0);
         }
         if (gamepad2.left_bumper) {
-            Carasol.setPower(-0.7);
+            Carasol.setPower(-0.5);
         } else {
             Carasol.setPower(0.0);
         }

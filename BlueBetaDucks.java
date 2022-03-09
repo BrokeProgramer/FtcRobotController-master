@@ -25,6 +25,8 @@ public class BlueBetaDucks extends LinearOpMode {
         sleep(150);
         backwards();
         sleep(1500);
+        turnLeft();
+        sleep(50);
         CarasolRightSide();
         sleep(5000);
         turnRight();
@@ -32,7 +34,7 @@ public class BlueBetaDucks extends LinearOpMode {
         forward();
         sleep(500);
         turnLeft();
-        sleep(500);
+        sleep(550);
         backwards();
         sleep(400);
         stop();
@@ -92,16 +94,16 @@ public class BlueBetaDucks extends LinearOpMode {
         Carasol.setPower(.5);
     }
     public void Straithright() {
-        frontLeft.setPower(-.2);
-        frontRight.setPower(.2);
-        backLeft.setPower(-.2);
-        backRight.setPower(.2);
+        frontLeft.setPower(.3);
+        backLeft.setPower(-.3);
+        frontRight.setPower(.3);
+        backRight.setPower(-.3);
     }
     public void Straithleft() {
-        frontLeft.setPower(.2);
-        frontRight.setPower(-.2);
-        backLeft.setPower(.2);
-        backRight.setPower(-.2);
+        frontLeft.setPower(-.3);
+        backLeft.setPower(.3);
+        frontRight.setPower(-.3);
+        backRight.setPower(0.3);
     }
 }
 

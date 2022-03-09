@@ -32,9 +32,9 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous (name = "BlueLeftScan", group = "Barcode")
-public class BlueLeftScan extends LinearOpMode {
-
+@Autonomous (name = "BlueRightScanED", group = "EncoderUpgradeBarcodeDuck")
+public class BlueRightScanED extends LinearOpMode {
+    D4C D4CLT = new D4C();
     // Define motors and servos
 
     DcMotor frontLeft;
@@ -52,6 +52,8 @@ public class BlueLeftScan extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        D4CLT.init(hardwareMap, telemetry);
+        D4CLT.hold();
         //initialize robot hardware
 
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -125,7 +127,7 @@ public class BlueLeftScan extends LinearOpMode {
         telemetry.update();
 
         //Wait for the user to press start on the Driver Station
-        hold();
+        D4CLT.hold();
         waitForStart();
 
         //Manages Telemetry and stopping the stream
@@ -137,114 +139,177 @@ public class BlueLeftScan extends LinearOpMode {
 
             switch (pipeline.getAnalysis()) {
                 case LEFT:
-                    //turn correction
-                    turnRight();
-                    hold();
+                    D4CLT.hold();
+                    D4CLT.Fall();
+                    //go forward
+                    D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
-                    //move "forward"(camera side)
-                    backwards();
-                    hold();
+                    //turn
+                    D4CLT.encoderLeftDrive(0.5,18,1000);
+                    //go forward slightly
+                    D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
+                    //extend arm out
+                    Foldout();
+                    sleep(1600);
+                    stopMotors();
                     sleep(1000);
 
-                    //gap
-                    hold();
-                    stopMotors();
+                    //D4CLT.setArm(-1800);
+                    D4CLT.StayUp();
+                    D4CLT.setArm(200);
+                    //open claw and go in
+
+                    D4CLT.encoderDrive(0.3, 4, 4, 1000);
+                    D4CLT.letGo();
+                    sleep(180);
+                    //close and go back out
+                    D4CLT.hold();
+
+                    D4CLT.encoderDrive(.3,-4,-4,1000);
+                    D4CLT.setArm(1200);
+                    //back up a bit
+                    D4CLT.Fall();
+                    D4CLT.encoderDrive(.5,6.5,6.5,1000);
+                    //turn back
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    //travel back a bit
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    //turn into gap
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    D4CLT.StrafeRight();
+                    sleep(1000);
+                    //park
+                    D4CLT.encoderDrive(0.5, 29, 29, 1000);
+                    D4CLT.StrafeRight();
                     sleep(200);
+                    D4CLT.hold();
+                    D4CLT.Fall();
 
-                    //turn toward hub
-                    turnRight();
-                    hold();
-                    sleep(420);
-
-                    //gap
-                    hold();
-                    stopMotors();
+                    D4CLT.StrafeLeft();
                     sleep(200);
+                    D4CLT.encoderDrive(0.4, 5, 5, 1000);
+                    D4CLT.CarasolBlue();
+                    D4CLT.stayConnected();
+                    sleep(3000);
+                    D4CLT.encoderDrive(0.4, -7, -7, 1000);
+                    D4CLT.encoderLeftDrive(0.4, 25, 1000);
+                    D4CLT.encoderDrive(0.4, 18, 18, 1000);
+                    D4CLT.letGo();
+                    D4CLT.StrafeRight();
 
-                    //move towards hub
-                    backwards();
-                    hold();
-                    sleep(90);
-
-                    //gap
-                    hold();
-                    stopMotors();
-                    sleep(200);
-
-                    //arm down to rest on lip
-                    Foldout();
-                    hold();
-                    sleep(500);
-
-                    //gap
-                    hold();
-                    stopMotors();
-                    sleep(200);
-
-                    //let arm fall
-                    hold();
-                    stopMotors();
-                    sleep(2000);
-
-                    //let go
-                    letGo();
-                    stopMotors();
-                    sleep(100);
-
-                    //put arm back
-                    Foldin();
-                    letGo();
-                    sleep(500);
-
-                    //gap
-                    letGo();
-                    stopMotors();
-                    sleep(200);
-
-                    //turn torwards hole
-                    turnLeft();
-                    letGo();
-                    sleep(90);
-
-                    //gap
-                    letGo();
-                    stopMotors();
-                    sleep(200);
-
-                    //drive to hole
-                    forward();
-                    letGo();
-                    sleep(850);
-
-                    //gap
-                    letGo();
-                    stopMotors();
-                    sleep(200);
-
-                    //turn into proper position
-                    turnRight();
-                    letGo();
-                    sleep(450);
-
-                    //gap
-                    letGo();
-                    stopMotors();
-                    sleep(300);
-
-                    //drive in
-                    forward();
-                    letGo();
-                    sleep(700);
-
-                    stop();
-                    stopMotors();
+                    sleep(1000);
+                    //D4CLT.encoderDrive();
                     break;
                 case CENTER:
-                    //
+                    D4CLT.hold();
+                    D4CLT.Fall();
+                    //go forward
+                    D4CLT.encoderDrive(0.5, 12, 12, 1000);
+                    sleep(100);
+                    //turn
+                    D4CLT.encoderLeftDrive(0.5,18,1000);
+                    //go forward slightly
+                    D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
+                    //extend arm out
+                    Foldout();
+                    sleep(1600);
+                    stopMotors();
+                    sleep(1000);
+
+                    //D4CLT.setArm(-1800);
+                    D4CLT.StayUp();
+                    D4CLT.setArm(310);
+                    //open claw and go in
+
+                    D4CLT.encoderDrive(0.3, 5, 55, 1000);
+                    D4CLT.letGo();
+                    sleep(300);
+                    //close and go back out
+                    D4CLT.hold();
+
+                    D4CLT.encoderDrive(.3,-5,-5,1000);
+                    D4CLT.setArm(1200);
+                    //back up a bit
+                    D4CLT.Fall();
+                    D4CLT.encoderDrive(.5,6,6,1000);
+                    //turn back
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    //travel back a bit
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    //turn into gap
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    D4CLT.StrafeRight();
+                    sleep(1000);
+                    //park
+                    D4CLT.encoderDrive(0.5, 29, 29, 1000);
+                    D4CLT.StrafeRight();
+                    sleep(200);
+                    D4CLT.hold();
+                    D4CLT.Fall();
+
+                    D4CLT.StrafeLeft();
+                    sleep(200);
+                    D4CLT.encoderDrive(0.4, 3, 3, 1000);
+                    D4CLT.CarasolBlue();
+                    D4CLT.stayConnected();
+                    sleep(3000);
+                    D4CLT.encoderDrive(0.4, -7, -7, 1000);
+                    D4CLT.encoderLeftDrive(0.4, 25, 1000);
+                    D4CLT.encoderDrive(0.4, 18, 18, 1000);
+                    D4CLT.letGo();
+                    D4CLT.StrafeRight();
+
+                    sleep(1000);
+                    //D4CLT.encoderDrive();
                     break;
                 case RIGHT:
+                    D4CLT.hold();
+                    D4CLT.Fall();
+                    //go forward
+                    D4CLT.encoderDrive(0.5, 12, 12, 1000);
+                    sleep(100);
+                    //turn
+                    D4CLT.encoderLeftDrive(0.5,18,1000);
+                    //go forward slightly
+                    D4CLT.encoderDrive(0.5, 3, 3, 1000);
+                    //extend arm out
+                    D4CLT.setArm(-1600);
+                    D4CLT.StayUp();
+                    //open claw and fold in
+                    D4CLT.letGo();
+                    D4CLT.setArm(1400);
+                    //back up a bit
+                    D4CLT.Fall();
+                    D4CLT.encoderDrive(0.5, -3, -3, 1000);
+                    //turn back
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    //travel back a bit
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    //turn into gap
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
+                    D4CLT.StrafeRight();
+                    sleep(1000);
+                    //park
+                    D4CLT.encoderDrive(0.5, 29, 29, 1000);
+                    D4CLT.StrafeRight();
+                    sleep(200);
+                    D4CLT.hold();
+                    D4CLT.Fall();
 
+                    D4CLT.StrafeLeft();
+                    sleep(200);
+                    D4CLT.encoderDrive(0.4, 3, 3, 1000);
+                    D4CLT.CarasolBlue();
+                    D4CLT.stayConnected();
+                    sleep(3000);
+                    D4CLT.encoderDrive(0.4, -7, -7, 1000);
+                    D4CLT.encoderLeftDrive(0.4, 25, 1000);
+                    D4CLT.encoderDrive(0.4, 18, 18, 1000);
+                    D4CLT.letGo();
+                    D4CLT.StrafeRight();
 
+                    sleep(1000);
+                    //D4CLT.encoderDrive();
                     break;
             }
 
@@ -254,85 +319,22 @@ public class BlueLeftScan extends LinearOpMode {
             break;
         }
     }
-    public void StayUp(){
-        Claw.setPower(.1);
-    }
     public void Foldout(){
-        Claw.setPower(-.7);
+        Claw.setPower(-.5);
     }
     public void Foldin(){
-        Claw.setPower(.7);
+        Claw.setPower(.5);
     }
-    public void hold(){
-        leftClaw.setPosition(-.95);
-        rightClaw.setPosition(.95);
-    }
-    public void letGo(){
-        leftClaw.setPosition(1.0);
-        rightClaw.setPosition(-1.0);
-    }
-    public void forward() {
-        frontLeft.setPower(.5);
-        frontRight.setPower(-.5);
-        backLeft.setPower(.5);
-        backRight.setPower(-.5);
-    }
-
-    public void backwards() {
-        frontLeft.setPower(-.3);
-        frontRight.setPower(.3);
-        backLeft.setPower(-.3);
-        backRight.setPower(.3);
-    }
-
-    public void turnRight() {
-        frontLeft.setPower(0);
-        frontRight.setPower(-.5);
-        backLeft.setPower(0);
-        backRight.setPower(-.5);
-    }
-
-    public void turnLeft() {
-        frontLeft.setPower(.5);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(.5);
-    }
-
     public void stopMotors() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        Carasol.setPower(0);
         Claw.setPower(0);
     }
 
-    public void stopexceptCarasol() {
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        Carasol.setPower(-.5);
-    }
-
-    public void CarasolRightSide() {
-        frontLeft.setPower(-.03);
-        frontRight.setPower(.03);
-        backLeft.setPower(-.03);
-        backRight.setPower(.03);
-        Carasol.setPower(.5);
-    }
-    public void Straithright() {
-        frontLeft.setPower(.3);
-        backLeft.setPower(-.3);
-        frontRight.setPower(.3);
-        backRight.setPower(-.3);
-    }
-    public void Straithleft() {
-        frontLeft.setPower(-.3);
-        backLeft.setPower(.3);
-        frontRight.setPower(-.3);
-        backRight.setPower(0.3);
-    }
 }
+
+//D4CLT.encoderDrive(0.5, -23, -23, 1000);
+// D4CLT.encoderLeftDrive(0.5, -28, 1000);
+// D4CLT.encoderRightDrive(0.5, -28, 1000);
