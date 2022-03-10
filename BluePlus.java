@@ -177,9 +177,12 @@ public class BluePlus extends LinearOpMode {
                     //turn into gap
                     D4CLT.encoderLeftDrive(0.5,-26,1000);
                     D4CLT.StrafeRight();
+                    D4CLT.letGo();
                     sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -18, -18, 1000);
+                    D4CLT.encoderDrive(0.5, -22, -22, 1000);
+                    D4CLT.hold();
+
                     break;
                 case CENTER:
                     D4CLT.hold();
@@ -220,9 +223,10 @@ public class BluePlus extends LinearOpMode {
                     //turn into gap
                     D4CLT.encoderLeftDrive(0.5,-26,1000);
                     D4CLT.StrafeRight();
+                    D4CLT.letGo();
                     sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -18, -18, 1000);
+                    D4CLT.encoderDrive(0.5, -22, -22, 1000);
                     break;
                 case RIGHT:
                     D4CLT.hold();
@@ -250,9 +254,10 @@ public class BluePlus extends LinearOpMode {
                     //turn into gap
                     D4CLT.encoderLeftDrive(0.5,-26,1000);
                     D4CLT.StrafeRight();
+                    D4CLT.letGo();
                     sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -18, -18, 1000);
+                    D4CLT.encoderDrive(0.5, -22, -22, 1000);
                     break;
             }
 
