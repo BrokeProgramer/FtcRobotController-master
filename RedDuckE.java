@@ -14,12 +14,10 @@ public class RedDuckE extends LinearOpMode {
         waitForStart();
         // Go backwards
         D4CLT.hold();
-        D4CLT.Fall();
         D4CLT.encoderDrive(0.4, 14, 14, 1000);
         D4CLT.StrafeRight();
         sleep(100);
         D4CLT.encoderDrive(0.4, -2, 2, 1000);
-        D4CLT.CarasolRed();
         D4CLT.stayConnected();
         sleep(3000);
         D4CLT.encoderDrive(0.4, -7, -7, 1000);

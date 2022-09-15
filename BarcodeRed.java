@@ -28,10 +28,9 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 //@Disabled
-public class BarcodeRed extends OpenCvPipeline {
+public class BarcodeRed {
     /*
      * An enum to define the skystone position
      */
@@ -120,7 +119,6 @@ public class BarcodeRed extends OpenCvPipeline {
         Core.extractChannel(YCrCb, Cb, 1);
     }
 
-    @Override
     public void init(Mat firstFrame)
     {
         /*
@@ -144,7 +142,6 @@ public class BarcodeRed extends OpenCvPipeline {
         region3_Cb = Cb.submat(new Rect(region3_pointA, region3_pointB));
     }
 
-    @Override
     public Mat processFrame(Mat input)
     {
         /*

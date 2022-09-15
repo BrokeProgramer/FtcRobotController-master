@@ -14,12 +14,10 @@ public class BlueDuckE extends LinearOpMode {
         waitForStart();
         // Go backwards
         D4CLT.hold();
-        D4CLT.Fall();
         D4CLT.encoderDrive(0.4, 12, 12, 1000);
         D4CLT.StrafeLeft();
         sleep(200);
         D4CLT.encoderDrive(0.4, 3, 3, 1000);
-        D4CLT.CarasolBlue();
         D4CLT.stayConnected();
         sleep(3000);
         D4CLT.encoderDrive(0.4, -7, -7, 1000);

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -11,18 +12,19 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 public class D4C {
-    public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-    public DcMotor Carasol;
-    public Servo leftClaw;
-    public Servo rightClaw;
-    public DcMotor Claw;
+    DcMotor frontLeft;
+    DcMotor backLeft;
+    DcMotor frontRight;
+    DcMotor backRight;
+    Servo leftClaw;
+    Servo rightClaw;
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;;
     public Telemetry telem;
 
     boolean clawClose;
-    boolean Suspended;
 
     private final ElapsedTime runtime = new ElapsedTime();
 
@@ -35,14 +37,16 @@ public class D4C {
     static final double TURN_SPEED = 0.3;
 
     public void init(HardwareMap hwmap, Telemetry telem) {
-        frontLeft = hwmap.dcMotor.get("frontLeft");
-        backLeft = hwmap.dcMotor.get("backLeft");
-        frontRight = hwmap.dcMotor.get("frontRight");
-        backRight = hwmap.dcMotor.get("backRight");
-        leftClaw = hwmap.servo.get("leftClaw");
-        rightClaw = hwmap.servo.get("rightClaw");
-        Claw = hwmap.dcMotor.get("Claw");
-        Carasol = hwmap.dcMotor.get("Carasol");
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
+        backRight = hardwareMap.dcMotor.get("backRight");
+        leftClaw = hardwareMap.servo.get("leftClaw");
+        rightClaw = hardwareMap.servo.get("rightClaw");
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
 
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -77,16 +81,6 @@ public class D4C {
             backLeft.setPower(speed);
             backRight.setPower(speed);
 
-        if (clawClose) {
-            hold();
-        } else {
-            letGo();
-        }
-        if (Suspended){
-            StayUp();
-        } else {
-            Fall();
-        }
 
             while (runtime.seconds() < timeouts && (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy())) {
 
@@ -140,16 +134,6 @@ public class D4C {
         //backLeft.setPower(speed);
         backRight.setPower(speed);
 
-        if (clawClose) {
-            hold();
-        } else {
-            letGo();
-        }
-        if (Suspended){
-            StayUp();
-        } else {
-            Fall();
-        }
 
         while (runtime.seconds() < timeouts && (frontRight.isBusy() && backRight.isBusy())) {
 
@@ -203,16 +187,6 @@ public class D4C {
         backLeft.setPower(speed);
        // backRight.setPower(speed);
 
-        if (clawClose) {
-            hold();
-        } else {
-            letGo();
-        }
-        if (Suspended){
-            StayUp();
-        } else {
-            Fall();
-        }
 
         while (runtime.seconds() < timeouts && (frontLeft.isBusy() && backLeft.isBusy())) {
 
@@ -241,14 +215,6 @@ public class D4C {
     }
 
 
-    public void Foldout(){
-        Claw.setPower(.8);
-    }
-    public void Foldin(){
-        Claw.setPower(-.8);
-    }
-    public void CarasolRed() {Carasol.setPower(-.7);}
-    public void CarasolBlue() {Carasol.setPower(.7); }
     public void StrafeLeft() {
         frontLeft.setPower(-.4);
         backLeft.setPower(.4);
@@ -262,17 +228,6 @@ public class D4C {
         backRight.setPower(.4);
     }
 
-    public void StayUp(){
-
-        Claw.setPower(.05);
-        Suspended = true;
-    }
-
-    public void Fall(){
-
-        Claw.setPower(0);
-        Suspended = false;
-    }
 
     public void hold(){
         leftClaw.setPosition(0);
@@ -282,8 +237,8 @@ public class D4C {
 
 
     public void letGo(){
-        leftClaw.setPosition(.2);
-        rightClaw.setPosition(.8);
+        leftClaw.setPosition(.225);
+        rightClaw.setPosition(.775);
         clawClose = false;
     }
     public void letGoAll(){
@@ -299,30 +254,4 @@ public class D4C {
     }
 
 
-    public void setArm(int ticks) {
-        int goalTick;
-
-        goalTick = Claw.getCurrentPosition() + ticks;
-
-        Claw.setTargetPosition(goalTick);
-
-        Claw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        Claw.setPower(.5);
-
-        if (clawClose) {
-            hold();
-        } else {
-            letGo();
-        }
-
-        while (Claw.isBusy()) {
-            telem.addData("Claw pos", Claw.getCurrentPosition());
-            telem.update();
-        }
-
-        Claw.setPower(0);
-
-        Claw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
 }

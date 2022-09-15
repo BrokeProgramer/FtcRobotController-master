@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -18,21 +19,24 @@ public class TeleopRunAutonomized extends LinearOpMode {
     DcMotor backRight;
     Servo leftClaw;
     Servo rightClaw;
-    DcMotor Claw;
-    DcMotor Carasol;
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;
     boolean aState, aCurr, aPrev;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        D4CLT.init(hardwareMap, telemetry);
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
         leftClaw = hardwareMap.servo.get("leftClaw");
         rightClaw = hardwareMap.servo.get("rightClaw");
-        Claw = hardwareMap.dcMotor.get("Claw");
-        Carasol = hardwareMap.dcMotor.get("Carasol");
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
         waitForStart();
 
         while (opModeIsActive()) {
@@ -47,23 +51,16 @@ public class TeleopRunAutonomized extends LinearOpMode {
 
                 // Driving forwards
                 if (Math.abs(-gamepad1.left_stick_y) > .1) {
-                    frontLeft.setPower(-gamepad1.left_stick_y * .7);
-                    D4CLT.backLeft.setPower(-gamepad1.left_stick_y * .7);
+                    frontLeft.setPower(-gamepad1.left_stick_y * .8);
+                    backLeft.setPower(-gamepad1.left_stick_y * .8);
                 } else {
                     frontLeft.setPower(0);
                     backLeft.setPower(0);
                 }
                 if (Math.abs(-gamepad1.right_stick_y) > .1) {
-                    frontRight.setPower(-gamepad1.right_stick_y * .7);
-                    backRight.setPower(-gamepad1.right_stick_y * .7);
-                }
-                if (gamepad1.dpad_up) {
-                    frontRight.setPower(-gamepad1.right_stick_y * .4);
-                    backRight.setPower(-gamepad1.right_stick_y * .4);
-                }
-                if (gamepad1.dpad_down) {
-                    frontRight.setPower(-gamepad1.right_stick_y * -.4);
-                    backRight.setPower(-gamepad1.right_stick_y * -.4);
+                    frontRight.setPower(-gamepad1.right_stick_y * .8);
+                    backRight.setPower(-gamepad1.right_stick_y * .8);
+
                 } else {
                     frontRight.setPower(0);
                     backRight.setPower(0);
@@ -80,27 +77,31 @@ public class TeleopRunAutonomized extends LinearOpMode {
                     frontRight.setPower(.8);
                     backRight.setPower(-.8);
                 }
+                if (gamepad1.dpad_down) {
+                    frontLeft.setPower(-.4);
+                    backLeft.setPower(-.4);
+                    frontRight.setPower(-.4);
+                    backRight.setPower(-.4);
+                }
+                if (gamepad1.dpad_up) {
+                    frontLeft.setPower(.4);
+                    backLeft.setPower(.4);
+                    frontRight.setPower(.4);
+                    backRight.setPower(.4);
+                }
             } else {
 
                 // Driving backwards
                 if (Math.abs(-gamepad1.left_stick_y) > .1) {
-                    frontRight.setPower(-gamepad1.left_stick_y * -.7);
-                    backRight.setPower(-gamepad1.left_stick_y * -.7);
+                    frontRight.setPower(-gamepad1.left_stick_y * -.8);
+                    backRight.setPower(-gamepad1.left_stick_y * -.8);
                 } else {
                     frontRight.setPower(0);
                     backRight.setPower(0);
                 }
                 if (Math.abs(-gamepad1.right_stick_y) > .1) {
-                    frontLeft.setPower(-gamepad1.right_stick_y * -.7);
-                    backLeft.setPower(-gamepad1.right_stick_y * -.7);
-                }
-                if (gamepad1.dpad_up) {
-                    frontRight.setPower(-gamepad1.right_stick_y * -.4);
-                    backRight.setPower(-gamepad1.right_stick_y * -.4);
-                }
-                if (gamepad1.dpad_down) {
-                    frontRight.setPower(-gamepad1.right_stick_y * .4);
-                    backRight.setPower(-gamepad1.right_stick_y * .4);
+                    frontLeft.setPower(-gamepad1.right_stick_y * -.8);
+                    backLeft.setPower(-gamepad1.right_stick_y * -.8);
                 } else {
                     frontLeft.setPower(0);
                     backLeft.setPower(0);
@@ -116,63 +117,47 @@ public class TeleopRunAutonomized extends LinearOpMode {
                     backLeft.setPower(-.8);
                     frontRight.setPower(-.8);
                     backRight.setPower(0.8);
-
                 }
+
             }
                 if (gamepad2.dpad_right) {
                     D4CLT.hold();
-                    D4CLT.setArm(-1600);
                     D4CLT.letGoAll();
                     // D4CLT.leftClaw.setPosition(1.0);
                     // D4CLT.rightClaw.setPosition(-1.0);
                     sleep(200);
                     D4CLT.hold();
-                    D4CLT.setArm(1400);
                 }
                 if (gamepad2.dpad_down) {
                     D4CLT.hold();
-                    D4CLT.StayUp();
-                    D4CLT.setArm(-1950);
                     D4CLT.letGoAll();
                     // D4CLT.leftClaw.setPosition(1.0);
                     // D4CLT.rightClaw.setPosition(-1.0);
                     sleep(200);
-                    D4CLT.Fall();
                     D4CLT.hold();
-                    D4CLT.setArm(1650);
                 }
                 if (gamepad2.dpad_left) {
                     D4CLT.hold();
-                    D4CLT.StayUp();
-                    D4CLT.setArm(-1850);
                     D4CLT.letGoAll();
                     // D4CLT.leftClaw.setPosition(1.0);
                     // D4CLT.rightClaw.setPosition(-1.0);
                     sleep(200);
-                    D4CLT.Fall();
                     D4CLT.hold();
-                    D4CLT.setArm(1650);
                 }
                 if (gamepad2.dpad_up) {
                     D4CLT.hold();
-                    D4CLT.StayUp();
-                    D4CLT.setArm(-1800);
                     D4CLT.letGoAll();
                     // D4CLT.leftClaw.setPosition(1.0);
                     // D4CLT.rightClaw.setPosition(-1.0);
                     sleep(200);
-                    D4CLT.Fall();
                     D4CLT.hold();
-                    D4CLT.setArm(1650);
                 }
                 if (gamepad2.x) {
                     D4CLT.hold();
-                    D4CLT.setArm(-200);
                 }
                 if (gamepad2.y) {
 
                     D4CLT.hold();
-                    D4CLT.setArm(-1850);
                 }
 
                 if (gamepad2.a) {
@@ -180,34 +165,13 @@ public class TeleopRunAutonomized extends LinearOpMode {
                         leftClaw.setPosition(1.0);
                         rightClaw.setPosition(0);
                     } else {
-                        leftClaw.setPosition(.2);
-                        rightClaw.setPosition(.8);
+                        leftClaw.setPosition(.15);
+                        rightClaw.setPosition(.85);
                     }
                 } else {
                     leftClaw.setPosition(-1.0);
                     rightClaw.setPosition(1.0);
                 }
-                if (Math.abs(gamepad2.left_stick_y) > .1) {
-                    Claw.setPower(-gamepad2.left_stick_y * .5);
-                } else {
-                    Claw.setPower(0.0);
-                }
-                if (gamepad1.right_bumper) {
-                    Carasol.setPower(0.8);
-                } else {
-                    Carasol.setPower(0.0);
-                }
-                if (gamepad1.left_bumper) {
-                    Carasol.setPower(-0.7);
-                } else {
-                    Carasol.setPower(0.0);
-                }
-            if (Math.abs(gamepad2.left_trigger) > .1) {
-                Claw.setPower(-.1);
-            }
-            if (Math.abs(gamepad2.right_trigger) > .1) {
-                Claw.setPower(.1);
-            }
             }
         }
     }

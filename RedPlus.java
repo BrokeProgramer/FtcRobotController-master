@@ -33,8 +33,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous (name = "RedLeftScanE", group = "EncoderUpgradeBarcode")
-public class RedLeftScanE extends LinearOpMode {
+@Autonomous (name = "RedPlus", group = "AEncoderUpgradeBarcode")
+public class RedPlus extends LinearOpMode {
     D4C D4CLT = new D4C();
     // Define motors and servos
 
@@ -48,6 +48,7 @@ public class RedLeftScanE extends LinearOpMode {
     DcMotor ArmMotor2;
     DcMotor Lift;
     CRServo Hopper;
+
     OpenCvCamera webcam;
 
     BarcodeRed pipeline = new BarcodeRed(telemetry);
@@ -148,7 +149,7 @@ public class RedLeftScanE extends LinearOpMode {
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
                     //turn
-                    D4CLT.encoderRightDrive(0.5,14,1000);
+                    D4CLT.encoderLeftDrive(0.5,20,1000);
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
                     //extend arm out
@@ -169,15 +170,38 @@ public class RedLeftScanE extends LinearOpMode {
                     //back up a bit
                     D4CLT.encoderDrive(.5,6.5,6.5,1000);
                     //turn back
-                    D4CLT.encoderRightDrive(0.5,-14,1000);
+                    sleep(100);
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
                     //travel back a bit
                     D4CLT.encoderDrive(0.5, -6, -6, 1000);
                     //turn into gap
-                    D4CLT.encoderRightDrive(0.5,-35,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(0.5,-30,1000);
                     D4CLT.StrafeLeft();
-                    sleep(1000);
+                    D4CLT.letGo();
+                    sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -50, -50, 1000);
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+
+                    D4CLT.encoderDrive(0.5, -16, -16, 1000);
+//round 1 left
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    D4CLT.encoderDrive(.6,3,3,1000);
+                    D4CLT.hold();
+
+                    sleep(100);
+                    D4CLT.encoderDrive(.6,22,22,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,20,1000);
+                    D4CLT.encoderDrive(.6,14,14,1000);
+                    //open claw and fold in
+                    D4CLT.letGo();
+                    D4CLT.encoderDrive(.6,-18,-18,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,-15,1000);
+
+                    //round 2
+                    D4CLT.encoderDrive(0.5, -28, -28, 1000);
                     break;
                 case CENTER:
                     D4CLT.hold();
@@ -185,7 +209,7 @@ public class RedLeftScanE extends LinearOpMode {
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
                     //turn
-                    D4CLT.encoderRightDrive(0.5,14,1000);
+                    D4CLT.encoderLeftDrive(0.5,20,1000);
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
                     //extend arm out
@@ -196,34 +220,56 @@ public class RedLeftScanE extends LinearOpMode {
                     //D4CLT.setArm(-1800);
                     //open claw and go in
 
-                    D4CLT.encoderDrive(0.3, 5, 55, 1000);
+                    D4CLT.encoderDrive(0.3, 4.5, 4.5, 1000);
                     D4CLT.letGo();
-                    sleep(300);
+                    sleep(200);
                     //close and go back out
                     D4CLT.hold();
 
-                    D4CLT.encoderDrive(.3,-5,-5,1000);
+                    D4CLT.encoderDrive(.3,-4.5,-4.5,1000);
                     //back up a bit
                     D4CLT.encoderDrive(.5,6,6,1000);
                     //turn back
-                    D4CLT.encoderRightDrive(0.5,-14,1000);
+                    sleep(100);
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
                     //travel back a bit
                     D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
                     //turn into gap
-                    D4CLT.encoderRightDrive(0.5,-35,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(0.5,-30,1000);
                     D4CLT.StrafeLeft();
-                    sleep(1000);
+                    D4CLT.letGo();
+                    sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -50, -50, 1000);
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+
+                    D4CLT.encoderDrive(0.5, -16, -16, 1000);
+//round 1 center
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    D4CLT.encoderDrive(.6,3,3,1000);
+                    D4CLT.hold();
+
+                    sleep(100);
+                    D4CLT.encoderDrive(.6,22,22,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,20,1000);
+                    D4CLT.encoderDrive(.6,14,14,1000);
+                    //open claw and fold in
+                    D4CLT.letGo();
+                    D4CLT.encoderDrive(.6,-18,-18,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,-15,1000);
+
+                    //round 2
+                    D4CLT.encoderDrive(0.5, -28, -28, 1000);
                     break;
                 case RIGHT:
                     D4CLT.hold();
                     //go forward
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
-                    sleep(100);
                     //turn
-                    D4CLT.encoderRightDrive(0.5,14,1000);
+                    D4CLT.encoderLeftDrive(0.5,19,1000);
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, 3, 3, 1000);
                     //extend arm out
@@ -232,15 +278,35 @@ public class RedLeftScanE extends LinearOpMode {
                     //back up a bit
                     D4CLT.encoderDrive(0.5, -3, -3, 1000);
                     //turn back
-                    D4CLT.encoderRightDrive(0.5,-14,1000);
+                    sleep(100);
+                    D4CLT.encoderLeftDrive(0.5,-18,1000);
                     //travel back a bit
                     D4CLT.encoderDrive(0.5, -6, -6, 1000);
                     //turn into gap
-                    D4CLT.encoderRightDrive(0.5,-32,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(0.5,-30,1000);
                     D4CLT.StrafeLeft();
-                    sleep(1000);
+                    sleep(500);
                     //park
-                    D4CLT.encoderDrive(0.5, -50, -50, 1000);
+                    D4CLT.encoderDrive(0.5, -16, -16, 1000);
+//round 1 right
+                    D4CLT.encoderDrive(0.5, -10, -10, 1000);
+                    D4CLT.encoderDrive(.6,3,3,1000);
+                    D4CLT.hold();
+
+                    sleep(100);
+                    D4CLT.encoderDrive(.6,22,22,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,20,1000);
+                    D4CLT.encoderDrive(.6,14,14,1000);
+                    //open claw and fold in
+                    D4CLT.letGo();
+                    D4CLT.encoderDrive(.6,-18,-18,1000);
+                    sleep(100);
+                    D4CLT.encoderRightDrive(.6,-15,1000);
+
+                    //round 2
+                    D4CLT.encoderDrive(0.5, -28, -28, 1000);
                     break;
             }
 

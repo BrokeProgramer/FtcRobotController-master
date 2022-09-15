@@ -23,6 +23,7 @@ package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -38,13 +39,15 @@ public class BlueRightScanE extends LinearOpMode {
     // Define motors and servos
 
     DcMotor frontLeft;
-    DcMotor frontRight;
     DcMotor backLeft;
+    DcMotor frontRight;
     DcMotor backRight;
     Servo leftClaw;
     Servo rightClaw;
-    DcMotor Carasol;
-    DcMotor Claw;
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;
 
     OpenCvCamera webcam;
 
@@ -57,14 +60,15 @@ public class BlueRightScanE extends LinearOpMode {
         //initialize robot hardware
 
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
         backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-        Carasol = hardwareMap.dcMotor.get("Carasol");
-        Claw = hardwareMap.dcMotor.get("Claw");
         leftClaw = hardwareMap.servo.get("leftClaw");
         rightClaw = hardwareMap.servo.get("rightClaw");
-
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
 
         //FOR THE WEBCAM
         /*
@@ -140,7 +144,6 @@ public class BlueRightScanE extends LinearOpMode {
             switch (pipeline.getAnalysis()) {
                 case LEFT:
                     D4CLT.hold();
-                    D4CLT.Fall();
                     //go forward
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
@@ -149,14 +152,11 @@ public class BlueRightScanE extends LinearOpMode {
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
                     //extend arm out
-                    Foldout();
                     sleep(1600);
                     stopMotors();
                     sleep(1000);
 
                     //D4CLT.setArm(-1800);
-                    D4CLT.StayUp();
-                    D4CLT.setArm(200);
                     //open claw and go in
 
                     D4CLT.encoderDrive(0.3, 4, 4, 1000);
@@ -166,9 +166,7 @@ public class BlueRightScanE extends LinearOpMode {
                     D4CLT.hold();
 
                     D4CLT.encoderDrive(.3,-4,-4,1000);
-                    D4CLT.setArm(1200);
                     //back up a bit
-                    D4CLT.Fall();
                     D4CLT.encoderDrive(.5,6.5,6.5,1000);
                     //turn back
                     D4CLT.encoderLeftDrive(0.5,-18,1000);
@@ -183,7 +181,6 @@ public class BlueRightScanE extends LinearOpMode {
                     break;
                 case CENTER:
                     D4CLT.hold();
-                    D4CLT.Fall();
                     //go forward
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
@@ -192,14 +189,11 @@ public class BlueRightScanE extends LinearOpMode {
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, -6.5, -6.5, 1000);
                     //extend arm out
-                    Foldout();
                     sleep(1600);
                     stopMotors();
                     sleep(1000);
 
                     //D4CLT.setArm(-1800);
-                    D4CLT.StayUp();
-                    D4CLT.setArm(310);
                     //open claw and go in
 
                     D4CLT.encoderDrive(0.3, 5, 55, 1000);
@@ -209,9 +203,7 @@ public class BlueRightScanE extends LinearOpMode {
                     D4CLT.hold();
 
                     D4CLT.encoderDrive(.3,-5,-5,1000);
-                    D4CLT.setArm(1200);
                     //back up a bit
-                    D4CLT.Fall();
                     D4CLT.encoderDrive(.5,6,6,1000);
                     //turn back
                     D4CLT.encoderLeftDrive(0.5,-18,1000);
@@ -226,7 +218,6 @@ public class BlueRightScanE extends LinearOpMode {
                     break;
                 case RIGHT:
                     D4CLT.hold();
-                    D4CLT.Fall();
                     //go forward
                     D4CLT.encoderDrive(0.5, 12, 12, 1000);
                     sleep(100);
@@ -235,13 +226,9 @@ public class BlueRightScanE extends LinearOpMode {
                     //go forward slightly
                     D4CLT.encoderDrive(0.5, 3, 3, 1000);
                     //extend arm out
-                    D4CLT.setArm(-1550);
-                    D4CLT.StayUp();
                     //open claw and fold in
                     D4CLT.letGo();
-                    D4CLT.setArm(1400);
                     //back up a bit
-                    D4CLT.Fall();
                     D4CLT.encoderDrive(0.5, -3, -3, 1000);
                     //turn back
                     D4CLT.encoderLeftDrive(0.5,-18,1000);
@@ -262,18 +249,11 @@ public class BlueRightScanE extends LinearOpMode {
             break;
         }
     }
-    public void Foldout(){
-        Claw.setPower(-.5);
-    }
-    public void Foldin(){
-        Claw.setPower(.5);
-    }
     public void stopMotors() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        Claw.setPower(0);
     }
 
 }

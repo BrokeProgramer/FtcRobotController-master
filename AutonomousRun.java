@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,13 +14,15 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior;
 @Autonomous(name = "AutonomousRun", group = "test")
 public class AutonomousRun extends LinearOpMode {
     DcMotor frontLeft;
-    DcMotor frontRight;
     DcMotor backLeft;
+    DcMotor frontRight;
     DcMotor backRight;
-    DcMotor Claw;
-    DcMotor Carasol;
     Servo leftClaw;
     Servo rightClaw;
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -45,13 +48,15 @@ public class AutonomousRun extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
         backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-        Claw = hardwareMap.dcMotor.get("Claw");
-        Carasol = hardwareMap.dcMotor.get("Carasol");
         leftClaw = hardwareMap.servo.get("leftClaw");
         rightClaw = hardwareMap.servo.get("rightClaw");
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
 
         frontLeft.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(ZeroPowerBehavior.BRAKE);
@@ -65,9 +70,7 @@ public class AutonomousRun extends LinearOpMode {
     private void AutoTransitioner(AutonomousRun autonomousRun, String teleopRun) {
     }
 
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) {
+    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;

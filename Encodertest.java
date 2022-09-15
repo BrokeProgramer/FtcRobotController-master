@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -12,14 +13,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Encodertest extends LinearOpMode {
 
     DcMotor frontLeft;
-    DcMotor frontRight;
     DcMotor backLeft;
+    DcMotor frontRight;
     DcMotor backRight;
-    DcMotor Carasol;
     Servo leftClaw;
     Servo rightClaw;
-    DcMotor Claw;
-    private final ElapsedTime runtime = new ElapsedTime();
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;    private final ElapsedTime runtime = new ElapsedTime();
 
     static final double Counts_PER_MOTOR_REV = 537.6;
     static final double DRIVE_GEAR_REDUCTION = 1.0;
@@ -37,8 +39,10 @@ public class Encodertest extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         leftClaw = hardwareMap.servo.get("leftClaw");
         rightClaw = hardwareMap.servo.get("rightClaw");
-        Claw = hardwareMap.dcMotor.get("Claw");
-        Carasol = hardwareMap.dcMotor.get("Carasol");
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -131,18 +135,6 @@ hold();
 
 
         }
-    }
-
-    public void StayUp() {
-        Claw.setPower(.1);
-    }
-
-    public void Foldout() {
-        Claw.setPower(-.7);
-    }
-
-    public void Foldin() {
-        Claw.setPower(.7);
     }
 
     public void hold() {

@@ -2,12 +2,13 @@ package org.firstinspires.ftc.teamcode.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.teamcode.Autonomous.D4C;
 
-@TeleOp(name = "TelopRun")
+@TeleOp(name = "TeleopRun")
 public class TeleopRun extends OpMode {
 
     DcMotor frontLeft;
@@ -16,8 +17,10 @@ public class TeleopRun extends OpMode {
     DcMotor backRight;
     Servo leftClaw;
     Servo rightClaw;
-    DcMotor Claw;
-    DcMotor Carasol;
+    DcMotor ArmMotor1;
+    DcMotor ArmMotor2;
+    DcMotor Lift;
+    CRServo Hopper;
     boolean aState, aCurr, aPrev;
 
     @Override
@@ -28,8 +31,10 @@ public class TeleopRun extends OpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         leftClaw = hardwareMap.servo.get("leftClaw");
         rightClaw = hardwareMap.servo.get("rightClaw");
-        Claw = hardwareMap.dcMotor.get("Claw");
-        Carasol = hardwareMap.dcMotor.get("Carasol");
+        ArmMotor1 = hardwareMap.dcMotor.get("ArmMotor1");
+        ArmMotor2 = hardwareMap.dcMotor.get("ArmMotor2");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        Hopper = hardwareMap.crservo.get("Hopper");
     }
 
     @Override
@@ -100,28 +105,48 @@ public class TeleopRun extends OpMode {
                 backRight.setPower(0.8);
             }
         }
-
         if (gamepad2.a) {
-            leftClaw.setPosition(1.0);
-            rightClaw.setPosition(-1.0);
+            if (gamepad2.b) {
+                leftClaw.setPosition(.4);
+                rightClaw.setPosition(.6);
+            } else {
+                leftClaw.setPosition(.15);
+                rightClaw.setPosition(.85);
+            }
         } else {
             leftClaw.setPosition(-1.0);
             rightClaw.setPosition(1.0);
         }
-        if (Math.abs(gamepad2.left_stick_y) > .1) {
-            Claw.setPower(-gamepad2.left_stick_y * .5);
-        } else {
-            Claw.setPower(0.0);
-        }
         if (gamepad2.right_bumper) {
-            Carasol.setPower(0.8);
-        } else {
-            Carasol.setPower(0.0);
+            ArmMotor1.setPower(.8);
+            ArmMotor2.setPower(-.8);
+        }
+        else {
+            ArmMotor1.setPower(0);
+            ArmMotor2.setPower(0);
         }
         if (gamepad2.left_bumper) {
-            Carasol.setPower(-0.7);
-        } else {
-            Carasol.setPower(0.0);
+            ArmMotor1.setPower(-.6);
+            ArmMotor2.setPower(.6);
+        }
+        else {
+            ArmMotor1.setPower(0);
+            ArmMotor2.setPower(0);
+        }
+        if (Math.abs(gamepad2.right_trigger) > .1) {
+            Lift.setPower(gamepad2.right_trigger * .5);
+        }
+        if (Math.abs(gamepad2.left_trigger) > .1) {
+            Lift.setPower(gamepad2.left_trigger * -.5);
+        }
+        if (gamepad2.dpad_right) {
+            Hopper.setPower(.3);
+        }
+        else if (gamepad2.dpad_left){
+            Hopper.setPower(-.3);
+        }
+        else {
+            Hopper.setPower(0);
         }
     }
 }
